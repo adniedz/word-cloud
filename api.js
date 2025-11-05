@@ -4,12 +4,12 @@ let gristData = [];
 let currentMask = null;
 let colorSchemes = {
   beta:[
-    "#005ba7",
-    "#004279",
-    "#efcd54",
-    "#1bb2ad",
-    "#FFEE73",
-    "#00284b",
+    "#005BA7", // bleu BETA
+    "#00284B", // bleu foncé CNRS
+    "#EFCD54", // jaune UL
+    "#1BB2AD", // vert INRAE
+    "#00B57B",  // vert pousse APT
+    "#009FE3",  // bleu clair UHA
   ],
   mix1: d3.schemeCategory10,
   mix2: d3.schemeTableau10,
