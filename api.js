@@ -120,7 +120,7 @@ function generateWordCloud() {
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
   // Configuration des couleurs
-  const colors = colorSchemes[colorScheme] || colorSchemes.custom;
+  const colors = colorSchemes[colorScheme] || colorSchemes.BETA;
   const colorScale = d3.scaleOrdinal(colors);
 
   // Configuration du layout
