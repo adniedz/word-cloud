@@ -1,0 +1,20 @@
+{
+    "name": "@ems/widget-nuage-de-mots",
+    "description": "Nuage de mots",
+    "homePage": "https://ville-eurometropole-strasbourg.github.io/ems-grist-widget/nuage-de-mots/",
+    "grist": {
+      "name": "Nuage de mots",
+      "url": "https://github.com/Ville-Eurometropole-Strasbourg/ems-grist-widget/tree/main/nuage-de-mots",
+      "widgetId": "@ems/widget-nuage-de-mots",
+      "published": true,
+      "accessLevel": "read table",
+      "renderAfterReady": true,
+      "authors": [
+        {
+          "name": "Héloïse Ouvry",
+          "url": "https://github.com/ouvry-ems"
+        }
+      ],
+      "isGristLabsMaintained": false
+    }
+  }

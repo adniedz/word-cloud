@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WordCloud Widget</title>
+  <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/d3-cloud@1.2.5/build/d3.layout.cloud.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+      background: #f5f5f5;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .controls {
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .control-group {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 5px;
+    }
+
+    .control-group label {
+      display: inline-block;
+      width: 80px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .control-group input,
+    .control-group select {
+      width: 80px;
+      padding: 2px;
+      font-size: 11px;
+    }
+
+    .control-group input[type="file"] {
+      width: 120px;
+    }
+
+    .wordcloud-container {
+      flex: 1;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #wordcloud {
+      width: 100%;
+      height: 100%;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 16px;
+      color: #666;
+    }
+
+    /* Toggle Controls */
+    .controls-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 1001;
+      background: #1976d2;
+      color: #ffffff;
+      border: none;
+      border-radius: 30%;
+      width: 56px;
+      height: 56px;
+      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .controls-toggle:hover {
+      background: #1565c0;
+      box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    }
+
+    .controls.hidden {
+      display: none;
+    }
+
+    .container.fullscreen {
+      gap: 0;
+    }
+
+    .container.fullscreen .wordcloud-container {
+      border-radius: 0;
+      box-shadow: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <button class="controls-toggle" id="toggleControls" title="Masquer/Afficher les réglages">
+    <span class="material-icons">Plein écran</span>
+</button>
+    <div class="controls">
+      <div class="control-group">
+        <label>Largeur:</label>
+        <input type="number" id="width" value="800" min="300" max="2000">
+      </div>
+
+      <div class="control-group">
+        <label>Hauteur:</label>
+        <input type="number" id="height" value="400" min="200" max="1000">
+      </div>
+
+      <div class="control-group">
+        <label>Couleurs:</label>
+        <select id="colorScheme">
+                    <option value="mix1">Mix 1</option>
+                    <option value="mix2">Mix 2</option>
+                    <option value="blues">Bleus</option>
+                    <option value="reds">Rouges</option>
+                    <option value="greens">Verts</option>
+                    <option value="custom">Personnalisé</option>
+                </select>
+      </div>
+
+      <div class="control-group">
+        <label>Police min:</label>
+        <input type="number" id="minFont" value="10" min="5" max="50">
+      </div>
+
+      <div class="control-group">
+        <label>Police max:</label>
+        <input type="number" id="maxFont" value="60" min="20" max="200">
+      </div>
+
+      <div class="control-group">
+        <label>Rotation :</label>
+        <input type="number" id="rotation" value="0" min="-360" max="360">
+      </div>
+
+      <div class="control-group">
+        <button id="generateBtn" onclick="generateWordCloud()">Générer</button>
+        <button id="exportBtn" onclick="exportWordCloud()">Exporter</button>
+      </div>
+
+      <div id="error" class="error"></div>
+    </div>
+
+    <div class="wordcloud-container">
+      <div id="loading" class="loading" style="display: none;">Génération en cours...</div>
+      <svg id="wordcloud"></svg>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+</body>
+
+</html>
