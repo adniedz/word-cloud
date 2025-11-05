@@ -3,6 +3,14 @@
 let gristData = [];
 let currentMask = null;
 let colorSchemes = {
+  beta:[
+    "#005ba7",
+    "#004279",
+    "#efcd54",
+    "#1bb2ad",
+    "#FFEE73",
+    "#00284b",
+  ],
   mix1: d3.schemeCategory10,
   mix2: d3.schemeTableau10,
   blues: d3.schemeBlues[9].reverse(),
