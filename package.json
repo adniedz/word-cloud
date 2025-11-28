@@ -14,6 +14,11 @@
           "name": "Héloïse Ouvry",
           "url": "https://github.com/ouvry-ems"
         }
+        {
+          "name": "Alexandra Niedzwiedz ",
+          "url": "https://forge.inrae.fr/alexandra.niedzwiedz",
+          "contribution": "Adaptation pour usage dans l'UMR BETA"
+        }
       ],
       "isGristLabsMaintained": false
     }
